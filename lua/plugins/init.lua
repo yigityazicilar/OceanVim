@@ -1,11 +1,6 @@
 local base_plugins = {
     {
-        "folke/tokyonight.nvim",
-        lazy = false,
-        priority = 1000,
-        config = function()
-            vim.cmd([[colorscheme tokyonight]])
-        end,
+        'nvim-lua/plenary.nvim'
     },
 
     -------- Keybind Viewer --------
@@ -101,11 +96,6 @@ local base_plugins = {
 
             {
                 "ray-x/lsp_signature.nvim",
-                config = function()
-                    require("lsp_signature").setup({
-                        hint_prefix = " ",
-                    })
-                end,
             },
 
             {
@@ -122,8 +112,43 @@ local base_plugins = {
             require("cmp").setup(opts)
         end,
     },
+
+    {
+        "nvim-telescope/telescope.nvim",
+        cmd = "Telescope",
+        init = function()
+            require("plugins.options.telescope").init()
+        end,
+        opts = function()
+            return require("plugins.options.telescope").options
+        end,
+        config = function(_, opts)
+            local telescope = require("telescope")
+            telescope.setup(opts)
+
+            for _, ext in ipairs(opts.extensions_list) do
+                telescope.load_extension(ext)
+            end
+        end,
+    },
+
+    {
+        "nvim-tree/nvim-web-devicons"
+    },
+
+    {
+        "rebelot/heirline.nvim",
+        event = "UIEnter",
+        opts = function()
+           return require("plugins.options.heirline")
+        end,
+        config = function(_, opts)
+           require("heirline").setup(opts)
+        end,
+    }, 
 }
 
-
+local colorschemes = require("plugins/colorschemes")
+table.insert(base_plugins, colorschemes)
 
 require("lazy").setup(base_plugins, require("plugins.options.lazy_nvim"))

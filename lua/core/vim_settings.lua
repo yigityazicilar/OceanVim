@@ -2,6 +2,7 @@ local opt = vim.opt
 local g   = vim.g
 
 g.mapleader = " "
+g.ocean_theme = "catppuccin"
 
 -- Options
 opt.clipboard = "unnamedplus"
@@ -28,6 +29,7 @@ opt.signcolumn = "yes"
 opt.laststatus = 3
 opt.timeoutlen = 400
 opt.undolevels = 1000
+opt.showmode = false
 
 opt.completeopt = { "menu", "menuone", "noselect" }
 

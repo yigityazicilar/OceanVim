@@ -11,7 +11,6 @@ local function map(mode, lhs, rhs, description, opts)
     vim.api.nvim_set_keymap(mode, lhs, rhs, options)
 end
 
-
 ------------------------- Normal ----------------------------
 map("n", "j", 'v:count || mode(1)[0:1] == "no" ? "j" : "gj"', "move down", { expr = true })
 map("n", "k", 'v:count || mode(1)[0:1] == "no" ? "k" : "gk"', "move up", { expr = true })

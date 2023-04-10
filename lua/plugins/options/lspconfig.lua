@@ -2,11 +2,17 @@ local lsp = require("lspconfig")
 local wk = require("which-key")
 
 local capabilities = require("cmp_nvim_lsp").default_capabilities(vim.lsp.protocol.make_client_capabilities())
+capabilities.textDocument.foldingRange = {
+    dynamicRegistration = false,
+    lineFoldingOnly = true,
+}
+
 local signature_config = {
     bind = true,
     handler_opts = {
         border = "rounded",
     },
+    hint_prefix = " ",
 }
 
 local on_attach = function(client, bufnr)
