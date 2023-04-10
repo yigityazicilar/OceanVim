@@ -23,8 +23,10 @@ local on_attach = function(client, bufnr)
             name = "+lsp",
             D = { function() vim.lsp.buf.declaration({ reuse_win = true }) end, "Show Declaration" },
             d = { function() vim.lsp.buf.definition({ reuse_win = true }) end, "Show Definition" },
-            r = { function() vim.lsp.buf.rename() end, "Rename"},
-            s = { function() vim.lsp.buf.signature_help() end, "Show Signature"},
+            r = { function() vim.lsp.buf.rename() end, "Rename" },
+            s = { function() vim.lsp.buf.signature_help() end, "Show Signature" },
+            h = { function() vim.lsp.buf.hover() end, "Hover" },
+            f = { function() vim.lsp.buf.format { async = true } end, "Format Document" },
         },
     }, { prefix = "<leader>", buffer = bufnr })
 end
@@ -34,7 +36,6 @@ local servers = {}
 lsp.lua_ls.setup({
     on_attach = on_attach,
     capabilities = capabilities,
-
     settings = {
         Lua = {
             runtime = {
@@ -57,4 +58,3 @@ lsp.lua_ls.setup({
         },
     },
 })
-

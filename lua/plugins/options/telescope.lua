@@ -9,12 +9,6 @@ M.init = function()
             r = { "<cmd>Telescope oldfiles<cr>", "Open Recent File" }
         }
     }, { prefix = "<leader>" })
-
-    wk.register({
-        t = {
-            p = { "<cmd>Telescope themes<cr>", "Theme Picker" },
-        }
-    }, { prefix = "<leader>" })
 end
 
 M.options = {

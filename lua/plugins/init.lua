@@ -145,7 +145,72 @@ local base_plugins = {
         config = function(_, opts)
            require("heirline").setup(opts)
         end,
-    }, 
+    },
+
+    {
+        "lewis6991/gitsigns.nvim",
+        ft = "gitcommit",
+        init = function()
+            -- load gitsigns only when a git file is opened
+            vim.api.nvim_create_autocmd({ "BufRead" }, {
+                group = vim.api.nvim_create_augroup("GitSignsLazyLoad", { clear = true }),
+                callback = function()
+                    vim.fn.system("git -C " .. '"' .. vim.fn.expand "%:p:h" .. '"' .. " rev-parse")
+                    if vim.v.shell_error == 0 then
+                        vim.api.nvim_del_augroup_by_name "GitSignsLazyLoad"
+                        vim.schedule(function()
+                            require("lazy").load { plugins = { "gitsigns.nvim" } }
+                        end)
+                    end
+                end,
+            })
+        end,
+        opts = function()
+            return require("plugins.options.gitsigns")
+        end,
+        config = function(_, opts)
+            require("gitsigns").setup(opts)
+        end,
+    },
+
+    {
+        "numToStr/Comment.nvim",
+        init = function()
+            local wk = require("which-key")
+            wk.register({
+                ["<leader>/"] = { function() require("Comment.api").toggle.linewise.current() end, "Comment Line"}
+            })
+            wk.register({
+                ["<leader>/"] = { "<ESC><cmd>lua require('Comment.api').toggle.linewise(vim.fn.visualmode())<CR>", "Comment Line"}
+            }, { mode = "v" })
+        end,
+        config = function()
+            require("Comment").setup({
+                mappings = false
+            })
+        end,
+    },
+
+    {
+        "folke/trouble.nvim",
+        cmd = { "Trouble", "TroubleClose", "TroubleToggle", "TroubleRefresh" },
+        dependencies = {
+            "nvim-tree/nvim-web-devicons"
+        },
+        config = function()
+            require("trouble").setup({
+                use_diagnostic_signs = true,
+            })
+        end,
+    },
+
+    {
+        "akinsho/toggleterm.nvim",
+        cmd = "ToggleTerm",
+        config = function()
+            require("toggleterm").setup()
+        end,
+    },
 }
 
 local colorschemes = require("plugins/colorschemes")
