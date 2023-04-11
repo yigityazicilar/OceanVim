@@ -25,29 +25,36 @@ local base_plugins = {
     {
         "williamboman/mason.nvim",
         build = ":MasonUpdate",
-        cmd = { "Mason", "MasonInstall", "MasonInstallAll", "MasonUninstall", "MasonUninstallAll", "MasonLog" },
+        cmd = { "Mason", "MasonInstall", "MasonUninstall", "MasonUninstallAll", "MasonLog" },
         opts = function()
-            return require("plugins.options.mason")
+            return require("plugins.options.mason").mason
         end,
         config = function(_, opts)
             require("mason").setup(opts)
-
-            vim.api.nvim_create_user_command(
-                "MasonInstallAll",
-                function()
-                    vim.cmd("MasonInstall " .. table.concat(opts.ensure_installed, " "))
-                end,
-                {}
-            )
         end,
     },
+
+    {
+        "williamboman/mason-lspconfig.nvim",
+        event = "UIEnter",
+        dependencies = {
+            "williamboman/mason.nvim"
+        },
+        opts = function()
+            return require("plugins.options.mason").mason_lspconfig
+        end,
+        config = function(_, opts)
+            require("mason-lspconfig").setup(opts)
+        end,
+    },
+
 
     {
         "neovim/nvim-lspconfig",
         event = { "BufRead", "BufNewFile", "BufWinEnter" },
         dependencies = {
-            { "folke/neoconf.nvim", cmd = "Neoconf", config = true },
-            { "folke/neodev.nvim", opts = { experimental = { pathStrict = true } } }
+            { "folke/neoconf.nvim", cmd = "Neoconf",                                config = true },
+            { "folke/neodev.nvim",  opts = { experimental = { pathStrict = true } } }
         },
         opts = {
             diagnostics = {
@@ -139,11 +146,14 @@ local base_plugins = {
     {
         "rebelot/heirline.nvim",
         event = "UIEnter",
+        dependencies = {
+            "nvim-tree/nvim-web-devicons"
+        },
         opts = function()
-           return require("plugins.options.heirline")
+            return require("plugins.options.heirline")
         end,
         config = function(_, opts)
-           require("heirline").setup(opts)
+            require("heirline").setup(opts)
         end,
     },
 
@@ -178,10 +188,11 @@ local base_plugins = {
         init = function()
             local wk = require("which-key")
             wk.register({
-                ["<leader>/"] = { function() require("Comment.api").toggle.linewise.current() end, "Comment Line"}
+                ["<leader>c"] = { function() require("Comment.api").toggle.linewise.current() end, "Comment Line" }
             })
             wk.register({
-                ["<leader>/"] = { "<ESC><cmd>lua require('Comment.api').toggle.linewise(vim.fn.visualmode())<CR>", "Comment Line"}
+                ["<leader>c"] = { "<ESC><cmd>lua require('Comment.api').toggle.linewise(vim.fn.visualmode())<CR>",
+                    "Comment Line" }
             }, { mode = "v" })
         end,
         config = function()
