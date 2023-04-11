@@ -123,6 +123,15 @@ local base_plugins = {
     {
         "nvim-telescope/telescope.nvim",
         cmd = "Telescope",
+        dependencies = {
+            "tsakirist/telescope-lazy.nvim",
+            -- {
+            --     'cljoly/telescope-repo.nvim',
+            --     dependencies = {
+            --
+            --     }
+            -- }
+        },
         init = function()
             require("plugins.options.telescope").init()
         end,
@@ -222,6 +231,32 @@ local base_plugins = {
             require("toggleterm").setup()
         end,
     },
+
+    {
+        "nvim-neorg/neorg",
+        build = ":Neorg sync-parsers",
+        cmd = "Neorg",
+        opts = {
+            load = {
+                ["core.defaults"] = {},       -- Loads default behaviour
+                ["core.norg.concealer"] = {}, -- Adds pretty icons to your documents
+                ["core.norg.dirman"] = {      -- Manages Neorg workspaces
+                    config = {
+                        workspaces = {
+                            university = "~/notes/uni",
+                            home = "~/notes/home",
+                        },
+                    },
+                },
+                ["core.norg.completion"] = {
+                    config = {
+                        engine = "nvim-cmp"
+                    }
+                },
+                ["core.integrations.nvim-cmp"] = {},
+            },
+        },
+    }
 }
 
 local colorschemes = require("plugins/colorschemes")
