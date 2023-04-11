@@ -46,8 +46,8 @@ local base_plugins = {
         "neovim/nvim-lspconfig",
         event = { "BufRead", "BufNewFile", "BufWinEnter" },
         dependencies = {
-            { "folke/neoconf.nvim", cmd = "Neoconf", config = true },
-            { "folke/neodev.nvim", opts = { experimental = { pathStrict = true } } }
+            { "folke/neoconf.nvim", cmd = "Neoconf",                                config = true },
+            { "folke/neodev.nvim",  opts = { experimental = { pathStrict = true } } }
         },
         opts = {
             diagnostics = {
@@ -116,6 +116,15 @@ local base_plugins = {
     {
         "nvim-telescope/telescope.nvim",
         cmd = "Telescope",
+        dependencies = {
+            "tsakirist/telescope-lazy.nvim",
+            -- {
+            --     'cljoly/telescope-repo.nvim',
+            --     dependencies = {
+            --
+            --     }
+            -- }
+        },
         init = function()
             require("plugins.options.telescope").init()
         end,
@@ -140,10 +149,10 @@ local base_plugins = {
         "rebelot/heirline.nvim",
         event = "UIEnter",
         opts = function()
-           return require("plugins.options.heirline")
+            return require("plugins.options.heirline")
         end,
         config = function(_, opts)
-           require("heirline").setup(opts)
+            require("heirline").setup(opts)
         end,
     },
 
@@ -178,10 +187,11 @@ local base_plugins = {
         init = function()
             local wk = require("which-key")
             wk.register({
-                ["<leader>/"] = { function() require("Comment.api").toggle.linewise.current() end, "Comment Line"}
+                ["<leader>/"] = { function() require("Comment.api").toggle.linewise.current() end, "Comment Line" }
             })
             wk.register({
-                ["<leader>/"] = { "<ESC><cmd>lua require('Comment.api').toggle.linewise(vim.fn.visualmode())<CR>", "Comment Line"}
+                ["<leader>/"] = { "<ESC><cmd>lua require('Comment.api').toggle.linewise(vim.fn.visualmode())<CR>",
+                    "Comment Line" }
             }, { mode = "v" })
         end,
         config = function()
@@ -211,6 +221,32 @@ local base_plugins = {
             require("toggleterm").setup()
         end,
     },
+
+    {
+        "nvim-neorg/neorg",
+        build = ":Neorg sync-parsers",
+        cmd = "Neorg",
+        opts = {
+            load = {
+                ["core.defaults"] = {},       -- Loads default behaviour
+                ["core.norg.concealer"] = {}, -- Adds pretty icons to your documents
+                ["core.norg.dirman"] = {      -- Manages Neorg workspaces
+                    config = {
+                        workspaces = {
+                            university = "~/notes/uni",
+                            home = "~/notes/home",
+                        },
+                    },
+                },
+                ["core.norg.completion"] = {
+                    config = {
+                        engine = "nvim-cmp"
+                    }
+                },
+                ["core.integrations.nvim-cmp"] = {},
+            },
+        },
+    }
 }
 
 local colorschemes = require("plugins/colorschemes")

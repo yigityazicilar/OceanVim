@@ -45,7 +45,7 @@ M.options = {
         file_ignore_patterns = { "node_modules" },
     },
 
-    extensions_list = { },
+    extensions_list = { "lazy" },
 }
 
 return M

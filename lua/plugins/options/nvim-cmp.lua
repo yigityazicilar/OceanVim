@@ -30,6 +30,7 @@ local options = {
         { name = 'buffer' },
         { name = 'nvim-lua' },
         { name = 'path' },
+        { name = "neorg" },
     }),
 
     formatting = {
