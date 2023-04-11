@@ -125,12 +125,15 @@ local base_plugins = {
         cmd = "Telescope",
         dependencies = {
             "tsakirist/telescope-lazy.nvim",
-            -- {
-            --     'cljoly/telescope-repo.nvim',
-            --     dependencies = {
-            --
-            --     }
-            -- }
+            {
+                'cljoly/telescope-repo.nvim',
+                dependencies = {
+                    "airblade/vim-rooter",
+                },
+                init = function()
+                    vim.g.rooter_cd_cmd = 'lcd'
+                end,
+            },
         },
         init = function()
             require("plugins.options.telescope").init()
@@ -238,9 +241,9 @@ local base_plugins = {
         cmd = "Neorg",
         opts = {
             load = {
-                ["core.defaults"] = {},       -- Loads default behaviour
-                ["core.norg.concealer"] = {}, -- Adds pretty icons to your documents
-                ["core.norg.dirman"] = {      -- Manages Neorg workspaces
+                ["core.defaults"] = {},
+                ["core.norg.concealer"] = {},
+                ["core.norg.dirman"] = {
                     config = {
                         workspaces = {
                             university = "~/notes/uni",
@@ -256,6 +259,23 @@ local base_plugins = {
                 ["core.integrations.nvim-cmp"] = {},
             },
         },
+    },
+
+    {
+        "nvim-tree/nvim-tree.lua",
+        cmd = { "NvimTreeToggle", "NvimTreeFocus", "NvimTreeFindFile", "NvimTreeCollapse" },
+        init = function()
+            local wk = require("which-key")
+            wk.register({
+                n = { "<cmd>NvimTreeToggle<cr>", "Open File Explorer" }
+            }, { prefix = "<leader>" })
+        end,
+        opts = function()
+            return require("plugins.options.nvimtree")
+        end,
+        config = function(_, opts)
+            require("nvim-tree").setup(opts)
+        end,
     }
 }
 

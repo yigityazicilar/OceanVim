@@ -6,7 +6,8 @@ M.init = function()
         f = {
             name = "+file",
             f = { "<cmd>Telescope find_files<cr>", "Find File" },
-            r = { "<cmd>Telescope oldfiles<cr>", "Open Recent File" }
+            r = { "<cmd>Telescope oldfiles<cr>", "Open Recent File" },
+            g = { "<cmd>Telescope repo list<cr>", "Show Git Projects"},
         }
     }, { prefix = "<leader>" })
 end
@@ -43,6 +44,19 @@ M.options = {
             "--smart-case",
         },
         file_ignore_patterns = { "node_modules" },
+    },
+    extensions = {
+        repo = {
+            list = {
+                fd_opts = {
+                    '--no-ignore-vcs'
+                },
+                search_dirs = {
+                    "~/Documents",
+                    "~/.config"
+                },
+            },
+        },
     },
 
     extensions_list = { "lazy" },

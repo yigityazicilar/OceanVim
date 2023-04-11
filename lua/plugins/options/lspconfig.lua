@@ -31,7 +31,7 @@ local on_attach = function(client, bufnr)
     }, { prefix = "<leader>", buffer = bufnr })
 end
 
-local servers = {}
+local servers = {"rust_analyzer"}
 
 lsp.lua_ls.setup({
     on_attach = on_attach,
@@ -58,3 +58,15 @@ lsp.lua_ls.setup({
         },
     },
 })
+
+lsp.clangd.setup({
+    on_attach = on_attach,
+    capabilities = capabilities,
+})
+
+for _, server in ipairs(servers) do
+    lsp[server].setup({
+        on_attach = on_attach,
+        capabilities = capabilities,
+    })
+end
