@@ -6,6 +6,7 @@ local options = {
     hijack_netrw = true,
     hijack_cursor = true,
     sync_root_with_cwd = true,
+    popup_border_style = "rounded",
     update_focused_file = {
         enable = true,
         update_root = false,
@@ -24,6 +25,7 @@ local options = {
     actions = {
         open_file = {
             resize_window = true,
+            quit_on_open = true,
         },
     },
     renderer = {

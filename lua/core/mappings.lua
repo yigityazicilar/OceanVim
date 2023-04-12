@@ -46,6 +46,7 @@ wk.register({
         d = { "<cmd>TroubleToggle<cr>", "Trouble Toggle" },
         t = { "<cmd>ToggleTerm dir=git_dir direction=vertical size=80<cr>", "Terminal" },
         g = { "<cmd>lua _lazygit_toggle()<cr>", "Lazygit Open"},
+        c = { "<cmd>TodoTrouble<cr>", "Trouble Show Comments" },
     }
 }, { prefix = "<leader>" })
 

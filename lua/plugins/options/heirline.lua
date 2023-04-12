@@ -320,6 +320,8 @@ local Git = {
     },
 }
 
+-- TODO: Create a Tabline in Heirline
+
 local options = {
     statusline = {
         -- LEFT

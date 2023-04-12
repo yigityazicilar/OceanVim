@@ -7,7 +7,8 @@ M.init = function()
             name = "+file",
             f = { "<cmd>Telescope find_files<cr>", "Find File" },
             r = { "<cmd>Telescope oldfiles<cr>", "Open Recent File" },
-            g = { "<cmd>Telescope repo list<cr>", "Show Git Projects"},
+            p = { "<cmd>Telescope repo list<cr>", "Show Git Projects"},
+            g = { "<cmd>Telescope live_grep<cr>", "Search in File"},
         }
     }, { prefix = "<leader>" })
 end

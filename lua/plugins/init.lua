@@ -1,6 +1,10 @@
 local base_plugins = {
+    'nvim-lua/plenary.nvim',
+    "nvim-tree/nvim-web-devicons",
+
     {
-        'nvim-lua/plenary.nvim'
+        "tpope/vim-repeat",
+        event = { "UIEnter" }
     },
 
     -------- Keybind Viewer --------
@@ -152,10 +156,6 @@ local base_plugins = {
     },
 
     {
-        "nvim-tree/nvim-web-devicons"
-    },
-
-    {
         "rebelot/heirline.nvim",
         event = "UIEnter",
         dependencies = {
@@ -228,6 +228,14 @@ local base_plugins = {
     },
 
     {
+        "folke/todo-comments.nvim",
+        event = { "BufRead", "BufNewFile", "BufWinEnter" },
+        config = function()
+            require("todo-comments").setup()
+        end,
+    },
+
+    {
         "akinsho/toggleterm.nvim",
         cmd = "ToggleTerm",
         config = function()
@@ -276,7 +284,36 @@ local base_plugins = {
         config = function(_, opts)
             require("nvim-tree").setup(opts)
         end,
-    }
+    },
+
+    {
+        "lukas-reineke/indent-blankline.nvim",
+        event = { "UIEnter" },
+        opts = {
+            indentLine_enabled = 1,
+            filetype_exclude = {
+                "help",
+                "terminal",
+                "lazy",
+                "lspinfo",
+                "TelescopePrompt",
+                "TelescopeResults",
+                "mason",
+                "",
+            },
+            buftype_exclude = { "terminal" },
+            show_trailing_blankline_indent = false,
+            show_first_indent_level = false,
+            show_current_context = true,
+            show_current_context_start = true,
+        },
+        config = function(_, opts)
+            require("indent_blankline").setup(opts)
+        end,
+    },
+
+    -- TODO: Add Spider to move faster through words.
+    -- TODO: Add a Startup Window Plugin to show on empty buffers.
 }
 
 local colorschemes = require("plugins/colorschemes")
