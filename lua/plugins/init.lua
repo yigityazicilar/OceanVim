@@ -244,32 +244,6 @@ local base_plugins = {
     },
 
     {
-        "nvim-neorg/neorg",
-        build = ":Neorg sync-parsers",
-        cmd = "Neorg",
-        opts = {
-            load = {
-                ["core.defaults"] = {},
-                ["core.norg.concealer"] = {},
-                ["core.norg.dirman"] = {
-                    config = {
-                        workspaces = {
-                            university = "~/notes/uni",
-                            home = "~/notes/home",
-                        },
-                    },
-                },
-                ["core.norg.completion"] = {
-                    config = {
-                        engine = "nvim-cmp"
-                    }
-                },
-                ["core.integrations.nvim-cmp"] = {},
-            },
-        },
-    },
-
-    {
         "nvim-tree/nvim-tree.lua",
         cmd = { "NvimTreeToggle", "NvimTreeFocus", "NvimTreeFindFile", "NvimTreeCollapse" },
         init = function()
