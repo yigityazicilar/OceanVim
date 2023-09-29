@@ -13,6 +13,7 @@ autocmd(
     }
 )
 
+-- Make Quickfix, TelescopePrompt, LSP information, manual pages, and the startup time screens to close with "q".
 autocmd("FileType", {
     group = augroup("close_with_q"),
     pattern = {

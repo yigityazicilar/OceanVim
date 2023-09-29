@@ -229,9 +229,11 @@ local base_plugins = {
 
     {
         "folke/todo-comments.nvim",
-        event = { "BufRead", "BufNewFile", "BufWinEnter" },
-        config = function()
-            require("todo-comments").setup()
+        cmd = { "TodoTrouble", "TodoTelescope" },
+        event = { "BufReadPost", "BufNewFile" },
+        config = true,
+        init = function()
+            -- require("keymaps.misc").todo()
         end,
     },
 
@@ -263,6 +265,7 @@ local base_plugins = {
     {
         "lukas-reineke/indent-blankline.nvim",
         event = { "UIEnter" },
+        main = "ibl",
         opts = {
             indentLine_enabled = 1,
             filetype_exclude = {
@@ -281,9 +284,6 @@ local base_plugins = {
             show_current_context = true,
             show_current_context_start = true,
         },
-        config = function(_, opts)
-            require("indent_blankline").setup(opts)
-        end,
     },
 
     -- TODO: Add Spider to move faster through words.
