@@ -36,7 +36,7 @@ return {
             use_diagnostic_signs = true,
         },
         init = function()
-            -- require("keymaps.misc").trouble()
+            -- [TODO] require("keymaps.misc").trouble()
         end,
     },
 
@@ -47,7 +47,7 @@ return {
         dependencies = { "nvim-lua/plenary.nvim" },
         config = true,
         init = function()
-            -- require("keymaps.misc").todo()
+            -- [TODO] require("keymaps.misc").todo()
         end,
     },
 
@@ -93,4 +93,12 @@ return {
 
     -- Enable some plugins to repeat their last command when "." is pressed.
     { "tpope/vim-repeat", event = "VeryLazy" },
+
+    {
+        "chrisgrieser/nvim-spider",
+        lazy = true,
+        init = function()
+            require("keymaps.misc").spider()
+        end,
+    },
 }

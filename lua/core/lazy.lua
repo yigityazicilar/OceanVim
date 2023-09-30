@@ -29,4 +29,4 @@ lazy.setup("plugins", {
     },
 })
 
-require("keymaps/vim")
+require("keymaps.vim")

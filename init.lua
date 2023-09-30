@@ -14,3 +14,5 @@ if not csOK then
     vim.notify("The colorscheme inside OceanNV_Colorscheme cannot be loaded", "error")
     pcall(vim.cmd.colorscheme, "catppuccin")
 end
+
+require("core.autocmds")

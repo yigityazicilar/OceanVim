@@ -28,3 +28,11 @@ autocmd("FileType", {
         vim.keymap.set("n", "q", "<cmd>q!<cr>", { buffer = event.buf, silent = true })
     end,
 })
+
+autocmd("LspAttach", {
+    group = augroup("LspConfig"),
+    callback = function(ev)
+        vim.bo[ev.buf].omnifunc = 'v:lua.vim.lsp.omnifunc'
+        -- [TODO] require('keymaps.lsp').lsp()
+    end
+})
